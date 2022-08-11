@@ -35,7 +35,12 @@
 
   <hr align="center" color="#fff" size="3" />
 
-  <h5>Всего найдено вакансий: {{vac_number}}</h5>
+  {% if vac_lst %}
+      <h5>Ключевые слова запроса: {{req.key_words}}</h5>
+      <h5>Регион поиска: {{vac_region}}</h5>
+      <h5>Вакансия актуальна: {{req.n_days}} дней</h5>
+      <h5>Всего найдено вакансий: {{vac_number}}</h5>
+  {% endif %}
 
   <hr align="center" color="#fff" size="3" />
 
