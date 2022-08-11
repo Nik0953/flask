@@ -15,3 +15,5 @@ req_to_hh.py - запрос к api hh.ru
 
 в папке templates находятся html-файлы и bootstrap
 
+для иллюстрации - копии экрана: Screens_11_08_2022.pdf
+
