@@ -74,9 +74,3 @@ def get_towns_dict(file_name):
                 town_dict[txt_name] = i
 
     return town_dict
-
-
-if __name__ == '__main__':
-    print(get_regions_dict('data/regions.json'))
-    print('*'*120)
-    print(get_towns_dict('data/regions.json'))

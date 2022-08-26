@@ -35,17 +35,19 @@ def run():
         req_form['where_to_find'] = request.form['where_to_find']
         req_form['n_days'] = request.form['n_days']
 
-        # запрос к hh.ru и сохранение вакансий
-        output_file_name = 'data/vac_lst.json'
-        vac_lst = get_vacancies(req_form, output_file_name)
+        # запрос к hh.ru и сохранение вакансий в базу
+        #output_file_name = 'data/vac_lst.json'
+        #vac_lst = get_vacancies(req_form, output_file_name)
+        vac_lst = get_vacancies(req_form)
         vac_to_db(db_name, vac_lst, int(req_form['where_to_find']))
         # информация для публикации в html
         vac_number = len(vac_lst)     # общее количество вакансий
         # находим имя региона по номеру
-        print(regions_dict)
         vac_region = [reg for reg in regions_dict if int(regions_dict[reg]) == int(req_form['where_to_find'])][0]
 
-        return render_template('results.html', vac_lst=vac_lst, req=req_form, vac_number=vac_number, vac_region=vac_region)
+        # список словарей вакансий берем из базы
+        vac_lst_to_publish = vac_to_publish_from_db(db_name)
+        return render_template('results.html', vac_lst=vac_lst_to_publish, req=req_form, vac_number=vac_number, vac_region=vac_region)
 
     elif request.method == 'GET':
         # выводим  html с формой запроса

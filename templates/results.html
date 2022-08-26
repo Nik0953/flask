@@ -44,22 +44,22 @@
 
   <hr align="center" color="#fff" size="3" />
 
+  <hr class="border border-primary border-3 opacity-75">
+
+<!--  Выводим список найденных вакансий-->
+
   {% if vac_lst %}
       {% for vac in vac_lst %}
       <h3> {{vac.name}} </h3>
-      {% if vac.salary %}
-          <h4> заработная плата: </h4>
-          {% if vac.salary.from %}
-              <h4> от: {{vac.salary.from}} до: {{vac.salary.to}} {{vac.salary.currency}}</h4>
-          {% endif %}
-      {% endif %}
-           <a href="{{vac.alternate_url}}" target="_blank"> вакансия {{vac.id}} </a>
+       <p> регион: {{vac.reg}}, населенный пункт: {{vac.town}} <br>
+       заработная плата: от {{vac.s_from}} до: {{vac.s_to}} рублей<br>
+       ключевые требования:{{vac.skill}} <br>
+       <a href="{{vac.alternate_url}}" target="_blank"> вакансия {{vac.id}} </a>
       <hr align="center" color="#fff" size="3" />
       {% endfor %}
   {% else %}
       Вакансий не найдено
   {% endif %}
-
 
 
     <!-- Optional JavaScript -->
