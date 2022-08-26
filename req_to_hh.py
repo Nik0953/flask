@@ -9,7 +9,7 @@ def get_vacancies(requirements, output_file_name):
     :param requirements - словарь:
         {
         'key_words': = ключевые слова для поиска, string;
-        'were_to_find': = регион, string;
+        'where_to_find': = регион, string;
         'n_days': = сколько дней назад актуальны вакансии, string;
         }
     :param output_file_name: имя файла вывода
@@ -18,7 +18,7 @@ def get_vacancies(requirements, output_file_name):
 
     DOMAIN = 'https://api.hh.ru/vacancies/'
     vacancy_filter = {'text': requirements['key_words'],
-                      'area': requirements['were_to_find'],   # Москва
+                      'area': requirements['where_to_find'],   # Москва
                       # 'only_with_salary': 'true',
                       'period': requirements['n_days'],
                       'page': '0'
@@ -68,7 +68,7 @@ def get_vacancies(requirements, output_file_name):
 
 if __name__ == "__main__":
     requirements = {'key_words': "слесарь инструментальщик",
-                    'were_to_find': "1",
+                    'where_to_find': "1",
                     'n_days': '2'
                    }
 

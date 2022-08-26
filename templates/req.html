@@ -52,11 +52,11 @@
 
         <label for="exampleFormControlSelect1">&nbsp;В каком регионе нужна вакансия?</label>
         <select class="form-control" name="where_to_find" id="exampleFormControlSelect1">
-           {% for town in regions_dict %}
-             {% if town!='Москва' %}
-               <option value ={{regions_dict[town]}}>{{town}}</option>
+           {% for reg in regions_dict %}
+             {% if reg!='Москва' %}
+               <option value ={{regions_dict[reg]}}>{{reg}}</option>
              {% else %}
-                <option selected value ={{regions_dict[town]}}>{{town}}</option>
+                <option selected value ={{regions_dict[reg]}}>{{reg}}</option>
              {% endif %}
            {% endfor %}
         </select>

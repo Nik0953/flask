@@ -1,9 +1,14 @@
 from flask import Flask, render_template, request
-from activate_data import get_cities_dict
+from activate_regions import *
 from req_to_hh import get_vacancies
+from db_exchange import *
+
+# ===========   Создание заново базы данных   ===========
+#                  и заполнение таблиц регионов и городов
+import db_new_activate
+
 
 app = Flask(__name__)
-
 
 #    *****  Главная страница    *****
 @app.route("/")
@@ -20,32 +25,31 @@ def run():
     vac_lst = []
 
     # чтение словаря регионов с кодами региона
-    input_file_name = 'data/regions.json'
-    regions_dict = get_cities_dict(input_file_name)
+    db_name = 'data/vac_hh.db'
+    regions_dict = regs_form_db(db_name)
 
     if request.method == 'POST':
         # Получть данные формы
         req_form = {}
         req_form['key_words'] = request.form['query_str']
-        req_form['were_to_find'] = request.form['where_to_find']
+        req_form['where_to_find'] = request.form['where_to_find']
         req_form['n_days'] = request.form['n_days']
 
         # запрос к hh.ru и сохранение вакансий
         output_file_name = 'data/vac_lst.json'
         vac_lst = get_vacancies(req_form, output_file_name)
+        vac_to_db(db_name, vac_lst, int(req_form['where_to_find']))
         # информация для публикации в html
         vac_number = len(vac_lst)     # общее количество вакансий
         # находим имя региона по номеру
-        vac_region = [reg for reg in regions_dict if regions_dict[reg] == req_form['were_to_find']][0]
-        #print(vac_region)
+        print(regions_dict)
+        vac_region = [reg for reg in regions_dict if int(regions_dict[reg]) == int(req_form['where_to_find'])][0]
 
         return render_template('results.html', vac_lst=vac_lst, req=req_form, vac_number=vac_number, vac_region=vac_region)
 
     elif request.method == 'GET':
         # выводим  html с формой запроса
         return render_template('req.html', regions_dict=regions_dict)
-
-
 
 
 
